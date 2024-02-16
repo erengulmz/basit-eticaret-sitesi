@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  <title>B'ella Beauty - Cildinin Güzelliğini Ortaya Çıkar</title>
+
+  <!-- 
+    - favicon
+  -->
+
+  <link rel="shortcut icon" href="./bold-letter-interface-symbol-svgrepo-com.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./assets/images/logo.png">
+  <link rel="preload" as="image" href="./assets/images/hero-banner-1.jpg">
+  <link rel="preload" as="image" href="./assets/images/hero-banner-2.jpg">
+  <link rel="preload" as="image" href="./assets/images/hero-banner-3.jpg">
+
+<style>
+#countdown{
+display: flex;
+
+align-items: center;
+font-family: 'Arial', sans-serif;
+}
+#countdown span{
+margin-left: 20 px;
+font-size: 2em;
+color: green;
+} 
+#countdown label{
+font-size: 1em;
+color: #000000;
+} 
+</style>
+
+
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header">
+
+    <div class="alert">
+      <div class="container">
+        <p class="alert-text">Türkiye'nin Her Yerine Ücretsiz Gönderim</p>
+      </div>
+    </div>
+
+    <div class="header-top" data-header>
+      <div class="container">
+
+        <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+          <span class="line line-1"></span>
+          <span class="line line-2"></span>
+          <span class="line line-3"></span>
+        </button>
+
+        <div class="input-wrapper">
+          <input type="search" name="search" placeholder="Ara" class="search-field">
+
+          <button class="search-submit" aria-label="search">
+            <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+
+        <a href="#" class="logo">
+          <img src="./assets/images/logo.jpg" width="280" height="26" alt="B'ella Beauty">
+        </a>
+
+        <div class="header-actions">
+
+          <button class="header-action-btn" aria-label="user" onclick="openLoginForm()">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+        </button>
+        
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeLoginForm()">&times;</span>
+                <div id="loginForm">
+                    <!-- Giriş Formu -->
+                    <h2>Giriş Yap</h2>
+                    <input class="modal-input" type="text" placeholder="Kullanıcı Adı" id="username">
+                    <input class="modal-input" type="password" placeholder="Şifre" id="password">
+                    <button class="modal-button" onclick="login()">Giriş Yap</button>
+                    <button class="modal-button" onclick="showRegisterForm()">Kayıt Ol</button>
+                </div>
+                <div id="registerForm" style="display: none;">
+                    <!-- Kayıt Formu -->
+                    <h2>Kayıt Ol</h2>
+                    <input class="modal-input" type="text" placeholder="Kullanıcı Adı" id="newUsername">
+                    <input class="modal-input" type="password" placeholder="Şifre" id="newPassword">
+                    <button class="modal-button" onclick="register()">Kayıt Ol</button>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+
+          <button class="header-action-btn" aria-label="favourite item">
+            <ion-icon name="star-outline" aria-hidden="true" aria-hidden="true"></ion-icon>
+
+            <span class="btn-badge">0</span>
+          </button>
+
+          <button class="header-action-btn" aria-label="cart item">
+            <data class="btn-text" value="0">₺0.00</data>
+
+            <ion-icon name="bag-handle-outline" aria-hidden="true" aria-hidden="true"></ion-icon>
+
+            <span class="btn-badge2">0</span>
+          </button>
+
+        </div>
+
+        <nav class="navbar">
+          <ul class="navbar-list">
+
+            <li>
+              <a href="index.html" class="navbar-link has-after">Anasayfa</a>
+            </li>
+
+
+            <li>
+              <a href="shop.html" class="navbar-link has-after">Mağaza</a>
+            </li>
+
+            <li>
+              <a href="#offer" class="navbar-link has-after">Teklif</a>
+            </li>
+
+
+          </ul>
+        </nav>
+
+      </div>
+    </div>
+
+  </header>
+
+
+
+
+
+  <!-- 
+    - #MOBILE NAVBAR
+  -->
+
+  <div class="sidebar">
+    <div class="mobile-navbar" data-navbar>
+
+      <div class="wrapper">
+        <a href="#" class="logo">
+          <img src="./assets/images/logo.jpg" width="230" height="26" alt="B'ella Beauty">
+        </a>
+
+        <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+          <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+        </button>
+      </div>
+
+      <ul class="navbar-list">
+
+        <li>
+          <a href="#home" class="navbar-link" data-nav-link>Anasayfa</a>
+        </li>
+
+
+        <li>
+          <a href="#shop" class="navbar-link" data-nav-link>Mağaza</a>
+        </li>
+
+        <li>
+          <a href="#offer" class="navbar-link" data-nav-link>Teklif</a>
+        </li>
+
+
+
+      </ul>
+
+    </div>
+
+    <div class="overlay" data-nav-toggler data-overlay></div>
+  </div>
+
+
+
+
+
+
+
+      <!-- 
+        - #SHOP
+      -->
+
+      <div class="title-wrapper">
+        <h2 class="h2 section-title">Mağaza</h2>
+
+<section class="section shop" id="shop" aria-label="shop" data-section>
+        <div class="container">
+
+
+
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
+          </div>
+
+          <ul class="has-scrollbar">
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-01.jpg" data-fancybox='demo'><img src="./assets/images/product-01.jpg" width="540" height="720" loading="lazy"
+                alt="Fondöten" class="img-cover"/></a>
+
+                 <span class="badge" aria-label="20% off">-20%</span>
+
+                  <div class="card-actions">
+
+  <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                   <del class="del">999,00₺</del>
+
+                    <span class="span">799,20₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">FENTY BEAUTY Stick Fondöten</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-02.jpg" data-fancybox='demo'><img src="./assets/images/product-02.jpg" width="540" height="720" loading="lazy"
+                alt="Lip Balm" class="img-cover"/></a>
+
+ 
+
+                  <div class="card-actions">
+
+  <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <span class="span">950,00</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">ILIA Lip Balm</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-03.jpg" data-fancybox='demo'><img src="./assets/images/product-03.jpg" width="540" height="720" loading="lazy"
+                alt="Eyeliner" class="img-cover"/></a>
+
+                  <div class="card-actions">
+
+        <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <span class="span">699,00₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">MAC Eyeliner</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-04.jpg" data-fancybox='demo'><img src="./assets/images/product-04.jpg" width="540" height="720" loading="lazy"
+                alt="Gloss" class="img-cover"/></a>
+
+                  <div class="card-actions">
+
+  <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <span class="span">949,00₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">RARE BEAUTY Lip Gloss</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            
+
+       
+
+          </ul>
+
+        </div>
+      </section>
+
+
+<section class="section shop" id="shop" aria-label="shop" data-section>
+        <div class="container">
+
+
+
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
+          </div>
+
+          <ul class="has-scrollbar">
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-05.jpg" data-fancybox='demo'><img src="./assets/images/product-05.jpg" width="540" height="720" loading="lazy"
+                    alt="Ruj" class="img-cover"/></a>
+
+                 <span class="badge" aria-label="20% off">-20%</span>
+
+                  <div class="card-actions">
+
+                    <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <del class="del">799,00₺</del>
+
+                    <span class="span">639,20₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">MAC Mat Ruj</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-06.jpg" data-fancybox='demo'><img src="./assets/images/product-06.jpg" width="540" height="720" loading="lazy"
+                alt="Güneş Kremi" class="img-cover"/></a>
+
+                  <div class="card-actions">
+
+  <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <span class="span">1795,00₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">CHANEL Güneş Kremi</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-07.jpg" data-fancybox='demo'><img src="./assets/images/product-07.jpg" width="540" height="720" loading="lazy"
+                alt="Far Paleti" class="img-cover"/></a>
+
+ 
+
+                  <div class="card-actions">
+
+  <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <span class="span">2590,00₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">NARS Far Paleti</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-08.jpg" data-fancybox='demo'><img src="./assets/images/product-08.jpg" width="540" height="720" loading="lazy"
+                alt="Kaş Jeli" class="img-cover"/></a>
+
+                 <span class="badge" aria-label="20% off">-20%</span>
+
+                  <div class="card-actions">
+
+  <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                   <del class="del">959,00₺</del>
+
+                    <span class="span">767,00₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">Anastasia Beverly Hills Kaş Jeli</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+
+            
+
+
+
+          </ul>
+
+        </div>
+      </section>
+
+
+      <section class="section shop" id="shop" aria-label="shop" data-section>
+        <div class="container">
+
+
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
+          </div>
+
+          <ul class="has-scrollbar">
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-09.jpg" data-fancybox='demo'><img src="./assets/images/product-09.jpg" width="540" height="720" loading="lazy"
+                alt="Dudak Yağı" class="img-cover"/></a>
+
+                  <div class="card-actions">
+
+        <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <span class="span">2300,00₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">DIOR Dudak Yağı</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-10.jpg" data-fancybox='demo'><img src="./assets/images/product-10.jpg" width="540" height="720" loading="lazy"
+                alt="Maskara" class="img-cover"/></a>
+
+                  <div class="card-actions">
+
+  <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <span class="span">320,00₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">KIKO Maskara</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-11.jpg" data-fancybox='demo'><img src="./assets/images/product-11.jpg" width="540" height="720" loading="lazy"
+                alt="Pudra" class="img-cover"/></a>
+
+                  <span class="badge" aria-label="20% off">-20%</span>
+
+                  <div class="card-actions">
+
+       <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <del class="del">2500,00₺</del>
+
+                    <span class="span">2000,00₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">NARS Pudra</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="shop-card">
+
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                  <a href="./assets/images/product-12.jpg" data-fancybox='demo'><img src="./assets/images/product-12.jpg" width="540" height="720" loading="lazy"
+                alt="Makyaj Sabitleyici" class="img-cover"/></a>
+
+                  <div class="card-actions">
+
+           <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="add to whishlist">
+                      <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <button class="action-btn" aria-label="compare">
+                      <ion-icon name="repeat-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div class="card-content">
+
+                  <div class="price">
+                    <span class="span">1110,00₺</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">MAKE UP FOR EVER Sabitleyici</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <div class="rating-wrapper" aria-label="5 start rating">
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <p class="rating-text">6500 görüntüleme</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+        
+       
+
+          </ul>
+
+        </div>
+      </section>
+      
+
+
+
+
+
+
+
+
+
+      <!-- 
+        - #OFFER
+      -->
+
+      <section class="section offer" id="offer" aria-label="offer" data-section>
+        <div class="container">
+
+          <figure class="offer-banner">
+            <img src="./assets/images/offer-banner-1.jpg" width="305" height="408" loading="lazy" alt="offer products"
+              class="w-100">
+
+            <img src="./assets/images/offer-banner-2.jpg" width="450" height="625" loading="lazy" alt="offer products"
+              class="w-100">
+          </figure>
+
+          <div class="offer-content">
+
+            <p class="offer-subtitle">
+              <span class="span">Size Özel</span>
+
+              <span class="badge" aria-label="20% off">-%20</span>
+            </p>
+
+            <h2 class="h2-large section-title">EVOLVE Organik Serum</h2>
+
+            <p class="section-text">
+              Ürünlerimiz içeriği temiz,vegan ve herkesin kullanımına uygun olarak üretilmiştir.
+            </p>
+<br>
+     <div id="countdown">
+  <span id="days"></span> <h2>:</h2>
+ <span id="hours"></span>  <h2>:</h2>
+  <span id="minutes"></span>  <h2>:</h2>
+  <span id="seconds"></span>
+</div>
+<br>
+
+            <a href="#" class="btn btn-primary">Sadece 1850₺</a>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer" data-section>
+    <div class="container">
+
+      <div class="footer-top">
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Şirket</p>
+          </li>
+
+          <li>
+            <p class="footer-list-text">
+              Size en yakın <a href="#" class="link">mağazayı</a> görün.
+            </p>
+          </li>
+
+          <li>
+            <p class="footer-list-text bold">+90 (212) 563 28 74 </p>
+          </li>
+
+          <li>
+            <p class="footer-list-text">bella@beauty.com</p>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Linkler</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Yeni Ürünler</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">En Çok Satanlar</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Favoriler</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Hediye Kartı</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Bilgi</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">İletişime Geçin</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Kargo</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Şart & Koşullar</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Gizlilik Politikası</a>
+          </li>
+
+        </ul>
+
+        <div class="footer-list">
+
+          <p class="newsletter-title">Ürünlerden Haberdar Olun</p>
+
+          <p class="newsletter-text">
+            Mailini gir yeni ve indirimli ürünlerden ilk sen haberdar ol.
+          </p>
+
+          <form action="" class="newsletter-form">
+            <input type="email" name="email_address" placeholder="email adresinizi girin" required
+              class="email-field">
+
+            <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+          </form>
+
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+
+        <div class="wrapper">
+          <p class="copyright">
+            &copy; 2024 bellabeauty
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-youtube"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+
+        <a href="#" class="logo">
+          <img src="./assets/images/logo2.jpg" width="250" height="26" loading="lazy" alt="B'ella Beauty">
+        </a>
+
+        <img src="./assets/images/pay.jpg" width="250" height="30" alt="available all payment method" class="w-100">
+
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js" defer></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
