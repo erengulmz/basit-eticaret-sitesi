@@ -1,0 +1,13 @@
+# Core
+numpy==2.1.3
+opencv-python==4.10.0.84
+Pillow==10.4.0
+scipy==1.13.1
+
+# Face and person segmentation / landmarks
+mediapipe==0.10.14
+
+# Video IO
+imageio==2.36.0
+imageio-ffmpeg==0.5.1
+moviepy==1.0.3
