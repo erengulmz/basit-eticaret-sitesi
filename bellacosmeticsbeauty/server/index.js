@@ -1,4 +1,6 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
 import bcrypt from 'bcryptjs';
@@ -68,6 +70,12 @@ function authMiddleware(req, res, next) {
 app.get('/health', (req, res) => {
   res.json({ ok: true });
 });
+
+// Statik dosyaları servis et (projenin kökünden)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, '..');
+app.use(express.static(projectRoot));
 
 app.post('/api/auth/register', async (req, res) => {
   try {
