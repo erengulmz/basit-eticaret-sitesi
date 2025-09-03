@@ -1,0 +1,10 @@
+{
+  "name": "bellacosmeticsbeauty-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "NODE_ENV=development node server/index.js"
+  }
+}
