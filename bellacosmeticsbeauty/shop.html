@@ -1168,3 +1168,13 @@ color: #000000;
 </body>
 
 </html>
+<div id="cartModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeCartModal()">&times;</span>
+    <h2>Sepet</h2>
+    <ul id="cartItems"></ul>
+    <div class="cart-info"></div>
+    <p>Toplam Fiyat: <span id="totalPrice">₺0.00</span></p>
+    <button onclick="checkout()">Satın Al</button>
+  </div>
+</div>

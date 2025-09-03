@@ -133,53 +133,112 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-//SEPETE ÜRÜN EKLEME FONKSİYONU
-document.addEventListener('DOMContentLoaded', function() {
-  // Sepet bilgilerini tutacak değişkenler
-  let itemCount = 0;
-  let totalPrice = 0;
+// API ve Auth yardımcıları + Sepet entegrasyonu
+const API_BASE = 'http://localhost:4000';
 
-  // Sepete ürün ekleme işlevi
-  function addToCart(price) {
-    itemCount++; // Ürün sayısını arttır
-    totalPrice += price; // Toplam fiyata eklenen ürünün fiyatını ekle
-    updateCart(); // Sepet bilgilerini güncelle
+function getAuthToken() {
+  try { return localStorage.getItem('authToken'); } catch (_) { return null; }
+}
+
+function setAuthToken(token) {
+  try { localStorage.setItem('authToken', token); } catch (_) {}
+}
+
+function isAuthenticated() {
+  return Boolean(getAuthToken());
+}
+
+async function apiFetch(path, options = {}) {
+  const headers = Object.assign({ 'Content-Type': 'application/json' }, options.headers || {});
+  const token = getAuthToken();
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  const response = await fetch(API_BASE + path, { ...options, headers });
+  if (!response.ok) {
+    let message = 'İstek başarısız';
+    try { const data = await response.json(); if (data && data.error) message = data.error; } catch (_) {}
+    throw new Error(message);
   }
+  return response.json();
+}
 
-  // Sepet bilgilerini güncelleme işlevi
-  function updateCart() {
-    const btnText = document.querySelector('.btn-text');
-    const btnBadge = document.querySelector('.btn-badge2');
+function parsePriceFromText(text) {
+  if (!text) return 0;
+  const cleaned = text.toString().replace(/[\s₺]/g, '').replace(/\./g, '').replace(/,/g, '.');
+  const value = parseFloat(cleaned);
+  return isNaN(value) ? 0 : value;
+}
 
-    btnBadge.textContent = itemCount; // Ürün sayısını göster
-    btnText.textContent = '₺' + totalPrice.toFixed(2); // Toplam fiyatı göster
+function getProductInfoFromButton(button) {
+  const card = button.closest('.shop-card');
+  const nameElement = card ? card.querySelector('.card-title') : null;
+  const priceElement = card ? card.querySelector('.price .span') : null;
+  const productName = nameElement ? nameElement.textContent.trim() : 'Ürün';
+  const unitPrice = priceElement ? parsePriceFromText(priceElement.textContent) : 0;
+  return { productName, unitPrice };
+}
+
+function updateHeaderCartUI(items, total) {
+  const btnText = document.querySelector('.btn-text');
+  const btnBadge = document.querySelector('.btn-badge2');
+  const count = Array.isArray(items) ? items.reduce((sum, it) => sum + (it.quantity || 0), 0) : 0;
+  if (btnBadge) btnBadge.textContent = String(count);
+  if (btnText) btnText.textContent = '₺' + (Number(total || 0)).toFixed(2);
+}
+
+function showAlert(message) {
+  var alertBox = document.createElement('div');
+  alertBox.textContent = message;
+  alertBox.style.cssText = 'color:white; position: fixed; top: 17%; left: 50%; transform: translate(-50%, -50%); padding: 10px; background-color: black; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); z-index: 9999;';
+  document.body.appendChild(alertBox);
+  setTimeout(function() {
+    if (alertBox && alertBox.parentNode) alertBox.parentNode.removeChild(alertBox);
+  }, 1200);
+}
+
+async function refreshCartModal() {
+  const cartList = document.getElementById('cartItems');
+  const totalEl = document.getElementById('totalPrice');
+  if (!isAuthenticated()) {
+    if (cartList) cartList.innerHTML = '<li>Sepeti görmek için giriş yapınız.</li>';
+    if (totalEl) totalEl.textContent = '₺0.00';
+    return;
   }
-
-  // Ürün ekleme butonlarını seç
-  const addToCartButtons = document.querySelectorAll('.action-btn[aria-label="add to cart"]');
-
-  // Her bir ürün ekleme butonuna tıklandığında
-  addToCartButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      const priceElement = button.closest('.shop-card').querySelector('.price .span');
-      const price = parseFloat(priceElement.textContent.replace(',', '.')); // Fiyatı alma ve virgülü noktaya çevirme
-      addToCart(price); // Sepete ürün ekle
-      function showAlert(message) {
-        var alertBox = document.createElement('div');
-        alertBox.textContent = message;
-        alertBox.style.cssText = 'color:white; position: fixed; top: 17%; left: 50%; transform: translate(-50%, -50%); padding: 10px; background-color: black; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);';
-        document.body.appendChild(alertBox);
-    
-        setTimeout(function() {
-            alertBox.parentNode.removeChild(alertBox);
-        }, 1000); // 1 saniye sonra alert kutusunu kaldır
+  try {
+    const { items, total } = await apiFetch('/api/cart', { method: 'GET' });
+    if (cartList) {
+      cartList.innerHTML = '';
+      items.forEach(function(it) {
+        const li = document.createElement('li');
+        const lineTotal = Number(it.unit_price || 0) * Number(it.quantity || 0);
+        li.textContent = (it.quantity || 0) + ' x ' + (it.product_name || 'Ürün') + ' - ₺' + lineTotal.toFixed(2);
+        cartList.appendChild(li);
+      });
     }
-  
-    showAlert('Ürün sepete eklendi!');
-    
-    });
-  });
-});
+    if (totalEl) totalEl.textContent = '₺' + Number(total || 0).toFixed(2);
+    updateHeaderCartUI(items, total);
+  } catch (e) {
+    if (cartList) cartList.innerHTML = '<li>Sepet yüklenemedi.</li>';
+  }
+}
+
+function openCartModal() {
+  const cartModal = document.getElementById('cartModal');
+  if (cartModal) {
+    cartModal.style.display = 'block';
+    refreshCartModal();
+  }
+}
+
+function closeCartModal() {
+  const cartModal = document.getElementById('cartModal');
+  if (cartModal) {
+    cartModal.style.display = 'none';
+  }
+}
+
+// global erişim gereken fonksiyonlar
+window.openCartModal = openCartModal;
+window.closeCartModal = closeCartModal;
 
 //FAVORİLERE ÜRÜN EKLEME FONKSİYONU
 document.addEventListener('DOMContentLoaded', function() {
@@ -210,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-//KULLANICI GİRİŞ VE KAYIT FONKSİYONU
+//KULLANICI GİRİŞ VE KAYIT FONKSİYONU (Backend entegrasyonlu)
 // Modalı aç
 function openLoginForm() {
   document.getElementById('loginModal').style.display = 'block';
@@ -227,21 +286,41 @@ function showRegisterForm() {
   document.getElementById('registerForm').style.display = 'block';
 }
 
-// Giriş işlemi
-function login() {
-  // Giriş işlemleri burada yapılacak
-  alert('Giriş yapıldı!');
-  window.location.href = 'index.html';
+async function login() {
+  const username = document.getElementById('username')?.value?.trim();
+  const password = document.getElementById('password')?.value || '';
+  if (!username || !password) { showAlert('Kullanıcı adı ve şifre gerekli'); return; }
+  try {
+    const data = await apiFetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ username, password }) });
+    setAuthToken(data.token);
+    showAlert('Giriş başarılı');
+    closeLoginForm();
+    refreshCartModal();
+  } catch (e) {
+    showAlert(e.message || 'Giriş başarısız');
+  }
 }
 
-// Kayıt işlemi
-function register() {
-  // Kayıt işlemleri burada yapılacak
-  alert('Kayıt olundu! Lütfen giriş yapınız.');
-  // Kayıt işlemi tamamlandıktan sonra tekrar giriş formunu göster
-  document.getElementById('loginForm').style.display = 'block';
-  document.getElementById('registerForm').style.display = 'none';
+async function register() {
+  const username = document.getElementById('newUsername')?.value?.trim();
+  const password = document.getElementById('newPassword')?.value || '';
+  if (!username || !password) { showAlert('Kullanıcı adı ve şifre gerekli'); return; }
+  try {
+    const data = await apiFetch('/api/auth/register', { method: 'POST', body: JSON.stringify({ username, password }) });
+    setAuthToken(data.token);
+    showAlert('Kayıt başarılı, giriş yapıldı');
+    closeLoginForm();
+    refreshCartModal();
+  } catch (e) {
+    showAlert(e.message || 'Kayıt başarısız');
+  }
 }
+
+window.login = login;
+window.register = register;
+window.showRegisterForm = showRegisterForm;
+window.openLoginForm = openLoginForm;
+window.closeLoginForm = closeLoginForm;
 
 
 //SEPET İÇERİĞİ FONKSİYONU
@@ -250,10 +329,13 @@ document.addEventListener("DOMContentLoaded", function() {
   const headerCartButton = document.querySelector('.header-action-btn[aria-label="cart item"]');
   const closeCartButton = document.querySelector('.close');
 
-
   if (headerCartButton) {
     headerCartButton.addEventListener('click', () => {
-      updateCart('Ürün mevcut ', 0, 0.00); // Örnek değerler, istediğiniz gibi değiştirin
+      if (!isAuthenticated()) {
+        showAlert('Sepeti görmek için giriş yapın');
+        openLoginForm();
+        return;
+      }
       openCartModal();
     });
   }
@@ -264,22 +346,20 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  function updateCart(name, quantity, totalPrice) {
-    const cartInfo = document.querySelector('.cart-info');
-    cartInfo.innerText = `Sepette ${quantity} adet ${name} - Toplam: ₺${totalPrice.toFixed(2)}`;
-  }
-
-  function openCartModal() {
-    const cartModal = document.getElementById('cartModal');
-    if (cartModal) {
-      cartModal.style.display = 'block';
+  addEventOnElem(addToCartButtons, 'click', async function(event) {
+    const button = event.currentTarget || this;
+    if (!isAuthenticated()) {
+      showAlert('Sepete eklemek için lütfen giriş yapın');
+      openLoginForm();
+      return;
     }
-  }
-
-  function closeCartModal() {
-    const cartModal = document.getElementById('cartModal');
-    if (cartModal) {
-      cartModal.style.display = 'none';
+    try {
+      const { productName, unitPrice } = getProductInfoFromButton(button);
+      const data = await apiFetch('/api/cart/items', { method: 'POST', body: JSON.stringify({ productName, unitPrice, quantity: 1 }) });
+      updateHeaderCartUI(data.items, data.total);
+      showAlert('Ürün sepete eklendi!');
+    } catch (e) {
+      showAlert(e.message || 'Sepete eklenemedi');
     }
-  }
+  });
 });
